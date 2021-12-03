@@ -3,9 +3,9 @@ var dataSend = [];
 
 document.getElementById("modal").addEventListener("click", () => {
   getRbd();
+  SameRut();
   sendData();
   onlyNumbers();
-  // getColleges();
   responseRbd();
 });
 
@@ -13,30 +13,16 @@ const sendData = () => {
   document.getElementById("formData").addEventListener("submit", (event) => {
     event.preventDefault();
     checkRut(rut);
+    var name = $("#name").val();
+    var email = $("#email").val();
+    var phone = $("#phone").val();
+
+    if (name.length == 0 || email.length == 0 || phone.length == 0) {
+      $(".alertShow").fadeIn();
+      return false;
+    }
+
     var data = $("#formData").serialize();
-    var modalContent = $("#exampleModal");
-
-    var name = document.getElementById("name").value;
-    if (name.length == 0) {
-      alert("El campo nombre es requerido");
-      return;
-    }
-    var email = document.getElementById("email").value;
-    if (email.length == 0) {
-      alert("El campo correo es requerido");
-      return;
-    }
-    var phone = document.getElementById("phone").value;
-    if (phone.length == 0) {
-      alert("El campo teléfono es requerido");
-      return;
-    }
-    var charge = document.getElementById("charge").value;
-    if (charge.length == 0) {
-      alert("El campo cargo es requerido");
-      return;
-    }
-
     $.ajax({
       url: "./sendData.php",
       type: "POST",
@@ -48,8 +34,8 @@ const sendData = () => {
             iconClass: "glyphicon glyphicon-ok-sign",
             msg: "Su solicitud ha sido enviada!",
           });
-          this.submit();
-          // modalContent.fadeOut();
+          // this.submit();
+          // data.load();
         } else {
           alert("ERROR DEL SERVER");
         }
@@ -69,21 +55,16 @@ const getRbd = () => {
   });
 };
 
-// const getColleges = () => {
-//   $.ajax({
-//     url: "./mainQuery.php",
-//     method: "GET",
-//     success: (response) => {
-//       let template = ``;
-//       let json = JSON.parse(response);
-//       for (const rbd in json) {
-//         template += `<option value='${json[rbd].rbd}'>${json[rbd].colegio}</option>`;
-//       }
-//       return data.html(template);
-//     },
-//   });
-//   data.select2();
-// };
+const SameRut = () => {
+  $.ajax({
+    url: "./sameRut.php",
+    type: "GET",
+    success: (response) => {
+      let json = JSON.parse(response);
+      dataSend.push(json);
+    },
+  });
+};
 
 const responseRbd = () => {
   document.getElementById("rbd").addEventListener("change", ({ target }) => {
@@ -96,21 +77,21 @@ const responseRbd = () => {
     );
 
     if (resultFilter[0].length >= 1) {
-      document.getElementById("id").innerHTML = resultFilter[0][0].id;
-      document.getElementById("nameCollege").innerHTML =
-        resultFilter[0][0].colegio;
-      document.getElementById("nameDependency").innerHTML =
-        resultFilter[0][0].dependencia;
-      document.getElementById("nameRegion").innerHTML =
-        resultFilter[0][0].region;
-      document.getElementById("nameComuna").innerHTML =
-        resultFilter[0][0].comuna;
+      document.getElementById("nameCollege").value = resultFilter[0][0].colegio;
+      document.getElementById("nameDependency").value = resultFilter[0][0].dependencia;
+      document.getElementById("nameRegion").value = resultFilter[0][0].region;
+      document.getElementById("nameComuna").value = resultFilter[0][0].comuna;
+      $("#nameCollege").fadeIn();
+      $("#nameDependency").fadeIn();
+      $("#nameRegion").fadeIn();
+      $("#nameComuna").fadeIn();
       $("#show").slideDown();
     } else {
-      document.getElementById("nameCollege").innerHTML = "NO EXISTE COLEGIO!";
-      document.getElementById("nameDependency").innerHTML = "";
-      document.getElementById("nameRegion").innerHTML = "";
-      document.getElementById("nameComuna").innerHTML = "";
+      $('alertDanger').fadeIn();
+      $("#nameCollege").fadeOut("");
+      $("#nameDependency").fadeOut("");
+      $("#nameRegion").fadeOut("");
+      $("#nameComuna").fadeOut("");
       $("#show").slideUp();
     }
     //   resultFilter[0].length >= 1
@@ -172,8 +153,21 @@ const checkRut = (rut) => {
     rut.setCustomValidity("RUT Inválido");
     return false;
   }
-  // Si todo sale bien, eliminar errores (decretar que es válido)
   rut.setCustomValidity("");
+  // Si todo sale bien, eliminar errores (decretar que es válido)
+  const resultRut = dataSend.map((rutSearch) =>
+    rutSearch.filter((element) => {
+      if (element.Rut == rut) {
+        return element;
+      }
+    })
+  );
+  if (resultRut[0].length >= 1) {
+    $("#rutExist").html(
+      "<div class='alert alert-danger d-flex align-items-center'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg><div>Ya ha enviado una solicitud!</div></div>"
+    );
+    return false;
+  }
 };
 
 const onlyNumbers = () => {

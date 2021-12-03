@@ -30,39 +30,47 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="formData" method="POST">
+            <form id="formData">
                 
               <div class="mb-3">
                 <label class="col-form-label"><strong>Ingresa RBD:</strong></label>
-                <input type="text" class="form-control" name="id" id="rbd">
-                <label style="display: none;" class="col-form-label" id="id"></label>
+                <input type="text" class="form-control" name="rbd" id="rbd">
               </div>
+              <!-- <div id="alertDanger" style="display: none" class='alert alert-danger d-flex align-items-center'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg><div>No existe Colegio con ese RBD!</div></div> -->
               <div class="mb-3">
                 <label class="col-form-label"><strong>Colegio:</strong></label>
-                <label class="col-form-label" name="nameCollege" id="nameCollege"></label>
+                <input style="display: none" type="text" class="form-control" name="nameCollege" id="nameCollege" readonly>
               </div>
               <div class="mb-3">
-                <label class="col-form-label"><strong>Dependencia:</strong></label>
-                <label class="col-form-label" name="nameDependency" id="nameDependency"></label>
+                <label class="col-form-label" id="dep"><strong>Dependencia:</strong></label>
+                <input style="display: none" type="text" class="form-control" name="nameDependency" id="nameDependency" readonly>
               </div>
               <div class="mb-3">
-                <label class="col-form-label"><strong>Región:</strong></label>
-                <label class="col-form-label" name="nameRegion" id="nameRegion"></label>
+                <label class="col-form-label" id="reg"><strong>Región:</strong></label>
+                <input style="display: none" type="text" class="form-control" name="nameRegion" id="nameRegion" readonly>
               </div>
               <div class="mb-3">
-                <label class="col-form-label"><strong>Comuna:</strong></label>
-                <label class="col-form-label" name="nameComuna" id="nameComuna"></label>
+                <label class="col-form-label" id="com"><strong>Comuna:</strong></label>
+                <input style="display: none" type="text" class="form-control" name="nameComuna" id="nameComuna" readonly>
               </div>
               <div id="show" class="mb-3">
                 <h5 class="modal-title" id="exampleModalLabel">Datos del solicitante</h5>
                 <label class="form-label">Rut</label>
+                <label class="col-form-label" id="nameCollege" id="rutExist"></label>
                 <input type="text" class="form-control" name="rut" id="rut" oninput="checkRut(this)" maxlength="10">
                 <label class="form-label">Nombre y Apellido</label>
                 <input type="text" class="form-control" name="name" id="name">
+                <!-- <h6 style="color: red; display: none" class="alertShow">
+                   <strong>Campo nombre requerido!</strong>                
+                </h6> -->
                 <label class="form-label">Correo</label>
                 <input type="email" class="form-control" aria-describedby="emailHelp" name="email" id="email">
+                <!-- <h6 style="color: red; display: none" class="alertShow">
+                  <strong>Campo correo requerido!</strong>                
+               </h6> -->
                 <label class="form-label">Teléfono</label>
                 <input type="number" class="form-control" name="phone" id="phone">
+               
                 <label class="form-label">Cargo</label>
                 <select class="form-select" aria-label="Default select example" name="charge" id="charge">
                     <option value="Sostenedor" selected>Sostenedor</option>
@@ -70,7 +78,9 @@
                     <option value="Jefe UTP">Jefe UTP</option>
                     <option value="Docente">Docente</option>
                   </select>
-                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                  <h6 style="color: red; display: none" class="alertShow">
+                    <strong>Todos los campos son requeridos!</strong>                
+                 </h6>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -81,36 +91,6 @@
         </div>
       </div>
       </div>
-
-      <div class="col-md-6">
-        <label for="validationServer03" class="form-label">City</label>
-        <input type="text" class="form-control is-invalid" id="validationServer03" aria-describedby="validationServer03Feedback" required>
-        <div id="validationServer03Feedback" class="invalid-feedback">
-          Please provide a valid city.
-        </div>
-      </div>
-      <div class="col-md-3">
-        <label for="validationServer04" class="form-label">State</label>
-        <select class="form-select is-invalid" id="validationServer04" aria-describedby="validationServer04Feedback" required>
-          <option selected disabled value="">Choose...</option>
-          <option>...</option>
-        </select>
-        <div id="validationServer04Feedback" class="invalid-feedback">
-          Please select a valid state.
-        </div>
-      </div>
-
-    <!-- <button type="button" >Enviar</button>
-
-    <label for="">Ingresa RBD</label>
-
-    <input type="text" name="" id="rbd" />
-    <label for="" ></label>
-    <br />
-    <label for="" ></label>
-    <br />
-    <label for="" ></label>
-    <br /> -->
     <script src="./JS/jquery-3.5.1.js"></script>
     <script src="./dist/Lobibox.min.js"></script>
     <script src="./JS/app.js"></script>
