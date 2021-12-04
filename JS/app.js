@@ -78,27 +78,31 @@ const responseRbd = () => {
 
     if (resultFilter[0].length >= 1) {
       document.getElementById("nameCollege").value = resultFilter[0][0].colegio;
-      document.getElementById("nameDependency").value = resultFilter[0][0].dependencia;
+      document.getElementById("nameDependency").value =
+        resultFilter[0][0].dependencia;
       document.getElementById("nameRegion").value = resultFilter[0][0].region;
       document.getElementById("nameComuna").value = resultFilter[0][0].comuna;
+      $("#alertDanger").fadeOut();
       $("#nameCollege").fadeIn();
       $("#nameDependency").fadeIn();
       $("#nameRegion").fadeIn();
       $("#nameComuna").fadeIn();
       $("#show").slideDown();
+      $("#sendData").prop("disabled", false);
     } else {
-      $('alertDanger').fadeIn();
+      $("#alertDanger").fadeIn();
       $("#nameCollege").fadeOut("");
       $("#nameDependency").fadeOut("");
       $("#nameRegion").fadeOut("");
       $("#nameComuna").fadeOut("");
       $("#show").slideUp();
+      $("#sendData").prop("disabled", true);
     }
     //   resultFilter[0].length >= 1
     //     ? (document.getElementById("nameCollege").innerHTML =
     //         resultFilter[0][0].colegio, resultFilter[0][0].dependencia)
     //     : (document.getElementById("nameCollege").innerHTML = "NO EXISTE");
-    console.log(resultFilter);
+    // console.log(resultFilter);
   });
 };
 
@@ -107,32 +111,25 @@ const checkRut = (rut) => {
   var valor = rut.value.replace(".", "");
   // Despejar Guión
   valor = valor.replace("-", "");
-
   // Aislar Cuerpo y Dígito Verificador
   cuerpo = valor.slice(0, -1);
   dv = valor.slice(-1).toUpperCase();
-
   // Formatear RUN
   rut.value = cuerpo + "-" + dv;
-
   // Si no cumple con el mínimo ej. (n.nnn.nnn)
   if (cuerpo.length < 7) {
     rut.setCustomValidity("RUT Incompleto");
     return false;
   }
-
   // Calcular Dígito Verificador
   suma = 0;
   multiplo = 2;
-
   // Para cada dígito del Cuerpo
   for (i = 1; i <= cuerpo.length; i++) {
     // Obtener su Producto con el Múltiplo Correspondiente
     index = multiplo * valor.charAt(cuerpo.length - i);
-
     // Sumar al Contador General
     suma = suma + index;
-
     // Consolidar Múltiplo dentro del rango [2,7]
     if (multiplo < 7) {
       multiplo = multiplo + 1;
@@ -140,7 +137,6 @@ const checkRut = (rut) => {
       multiplo = 2;
     }
   }
-
   // Calcular Dígito Verificador en base al Módulo 11
   dvEsperado = 11 - (suma % 11);
 

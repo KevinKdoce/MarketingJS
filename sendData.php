@@ -15,7 +15,7 @@ $query = "INSERT INTO dataSend (Rut, Nombre_Apellido, Correo, Telefono, Cargo, R
 '$college', '$comuna')";
 $conexion = connection::connect();
 $response = mysqli_query($conexion, $query);
-        
+
 // $rows = mysqli_affected_rows($conexion, $query);
 
 // return $rows; 

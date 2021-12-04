@@ -11,7 +11,8 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./dist/css/Lobibox.min.css"/>
+    <link rel="stylesheet" href="./dist/css/Lobibox.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -19,78 +20,175 @@
     ></script>
   </head>
   <body>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+      data-bs-whatever="@mdo"
+      id="modal"
+    >
+      Solicitar
+    </button>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" id="modal">Solicitar</button>
-    
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Solicitud</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
             <form id="formData">
-                
               <div class="mb-3">
-                <label class="col-form-label"><strong>Ingresa RBD:</strong></label>
-                <input type="text" class="form-control" name="rbd" id="rbd">
+                <label class="col-form-label"
+                  ><strong>Ingresa RBD:</strong></label
+                >
+                <input type="text" class="form-control" name="rbd" id="rbd" />
               </div>
-              <!-- <div id="alertDanger" style="display: none" class='alert alert-danger d-flex align-items-center'><svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg><div>No existe Colegio con ese RBD!</div></div> -->
+              <button type="button" class="btn btn-success">Verificar RBD</button>
+              <br><br>
+              <div id="alertDanger"
+              style="display: none" class="alert alert-danger alert-dismissible fade show">
+                <strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>No existe Colegio con ese RBD!</strong>
+            </div>
               <div class="mb-3">
                 <label class="col-form-label"><strong>Colegio:</strong></label>
-                <input style="display: none" type="text" class="form-control" name="nameCollege" id="nameCollege" readonly>
+                <input
+                  style="display: none"
+                  type="text"
+                  class="form-control"
+                  name="nameCollege"
+                  id="nameCollege"
+                  readonly
+                />
               </div>
               <div class="mb-3">
-                <label class="col-form-label" id="dep"><strong>Dependencia:</strong></label>
-                <input style="display: none" type="text" class="form-control" name="nameDependency" id="nameDependency" readonly>
+                <label class="col-form-label" id="dep"
+                  ><strong>Dependencia:</strong></label
+                >
+                <input
+                  style="display: none"
+                  type="text"
+                  class="form-control"
+                  name="nameDependency"
+                  id="nameDependency"
+                  readonly
+                />
               </div>
               <div class="mb-3">
-                <label class="col-form-label" id="reg"><strong>Región:</strong></label>
-                <input style="display: none" type="text" class="form-control" name="nameRegion" id="nameRegion" readonly>
+                <label class="col-form-label" id="reg"
+                  ><strong>Región:</strong></label
+                >
+                <input
+                  style="display: none"
+                  type="text"
+                  class="form-control"
+                  name="nameRegion"
+                  id="nameRegion"
+                  readonly
+                />
               </div>
               <div class="mb-3">
-                <label class="col-form-label" id="com"><strong>Comuna:</strong></label>
-                <input style="display: none" type="text" class="form-control" name="nameComuna" id="nameComuna" readonly>
+                <label class="col-form-label" id="com"
+                  ><strong>Comuna:</strong></label
+                >
+                <input
+                  style="display: none"
+                  type="text"
+                  class="form-control"
+                  name="nameComuna"
+                  id="nameComuna"
+                  readonly
+                />
               </div>
               <div id="show" class="mb-3">
-                <h5 class="modal-title" id="exampleModalLabel">Datos del solicitante</h5>
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Datos del solicitante
+                </h5>
                 <label class="form-label">Rut</label>
-                <label class="col-form-label" id="nameCollege" id="rutExist"></label>
-                <input type="text" class="form-control" name="rut" id="rut" oninput="checkRut(this)" maxlength="10">
+                <label
+                  class="col-form-label"
+                  id="nameCollege"
+                  id="rutExist"
+                ></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="rut"
+                  id="rut"
+                  oninput="checkRut(this)"
+                  maxlength="10"
+                />
                 <label class="form-label">Nombre y Apellido</label>
-                <input type="text" class="form-control" name="name" id="name">
+                <input type="text" class="form-control" name="name" id="name" />
                 <!-- <h6 style="color: red; display: none" class="alertShow">
                    <strong>Campo nombre requerido!</strong>                
                 </h6> -->
                 <label class="form-label">Correo</label>
-                <input type="email" class="form-control" aria-describedby="emailHelp" name="email" id="email">
+                <input
+                  type="email"
+                  class="form-control"
+                  aria-describedby="emailHelp"
+                  name="email"
+                  id="email"
+                />
                 <!-- <h6 style="color: red; display: none" class="alertShow">
                   <strong>Campo correo requerido!</strong>                
                </h6> -->
                 <label class="form-label">Teléfono</label>
-                <input type="number" class="form-control" name="phone" id="phone">
-               
+                <input
+                  type="text"
+                  class="form-control"
+                  name="phone"
+                  id="phone"
+                  maxlength="9"
+                />
+
                 <label class="form-label">Cargo</label>
-                <select class="form-select" aria-label="Default select example" name="charge" id="charge">
-                    <option value="Sostenedor" selected>Sostenedor</option>
-                    <option value="Director">Director</option>
-                    <option value="Jefe UTP">Jefe UTP</option>
-                    <option value="Docente">Docente</option>
-                  </select>
-                  <h6 style="color: red; display: none" class="alertShow">
-                    <strong>Todos los campos son requeridos!</strong>                
-                 </h6>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  name="charge"
+                  id="charge"
+                >
+                  <option value="Sostenedor" selected>Sostenedor</option>
+                  <option value="Director">Director</option>
+                  <option value="Jefe UTP">Jefe UTP</option>
+                  <option value="Docente">Docente</option>
+                </select>
+                <h6 style="color: red; display: none" class="alertShow">
+                  <strong>Todos los campos son requeridos!</strong>
+                </h6>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" id="sendData">Solicitar Ahora</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+                <button type="submit" class="btn btn-primary" id="sendData">
+                  Solicitar Ahora
+                </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-      </div>
+    </div>
     <script src="./JS/jquery-3.5.1.js"></script>
     <script src="./dist/Lobibox.min.js"></script>
     <script src="./JS/app.js"></script>
