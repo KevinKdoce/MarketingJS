@@ -12,7 +12,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="./dist/css/Lobibox.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="./css/style.css">
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -50,12 +50,14 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form id="formData">
+            <form id="wpforms-form-21561" novalidate>
               <div class="mb-3">
-                <label class="col-form-label"
-                  ><strong>Ingresa RBD:</strong></label
-                >
-                <input type="text" class="form-control" name="rbd" id="rbd" />
+                <h6 class="modal-title" id="exampleModalLabel">
+                  Ingresar RBD:
+                </h6>
+                <input type="text" class="form-control" name="rbd" id="wpforms-21561-field_6" required>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Por favor indicar RBD!</div>
               </div>
               <button type="button" class="btn btn-success">Verificar RBD</button>
               <br><br>
@@ -64,7 +66,9 @@
                 <strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>No existe Colegio con ese RBD!</strong>
             </div>
               <div class="mb-3">
-                <label class="col-form-label"><strong>Colegio:</strong></label>
+                <h6 class="modal-title" id="exampleModalLabel">
+                  Colegio:
+                </h6>
                 <input
                   style="display: none"
                   type="text"
@@ -75,9 +79,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label class="col-form-label" id="dep"
-                  ><strong>Dependencia:</strong></label
-                >
+               <h6 class="modal-title" id="exampleModalLabel">
+                  Dependencia:
+                </h6>
                 <input
                   style="display: none"
                   type="text"
@@ -88,9 +92,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label class="col-form-label" id="reg"
-                  ><strong>Región:</strong></label
-                >
+               <h6 class="modal-title" id="exampleModalLabel">
+                  Región:
+                </h6>
                 <input
                   style="display: none"
                   type="text"
@@ -101,9 +105,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label class="col-form-label" id="com"
-                  ><strong>Comuna:</strong></label
-                >
+               <h6 class="modal-title" id="exampleModalLabel">
+                  Comuna:
+                </h6>
                 <input
                   style="display: none"
                   type="text"
@@ -114,63 +118,72 @@
                 />
               </div>
               <div id="show" class="mb-3">
-                <h5 class="modal-title" id="exampleModalLabel">
+                <h6 class="modal-title" id="exampleModalLabel">
                   Datos del solicitante
-                </h5>
-                <label class="form-label">Rut</label>
-                <label
-                  class="col-form-label"
-                  id="nameCollege"
-                  id="rutExist"
-                ></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="rut"
+                </h6>
+                <br>
+                <div class="col-md-12">
+                  <p class="modal-title" id="exampleModalLabel">
+                    Rut
+                  </p>
+                  <input class="form-control" type="text" name="rut"
                   id="rut"
+                  class="wpforms-21561-field_14"
                   oninput="checkRut(this)"
-                  maxlength="10"
-                />
-                <label class="form-label">Nombre y Apellido</label>
-                <input type="text" class="form-control" name="name" id="name" />
-                <!-- <h6 style="color: red; display: none" class="alertShow">
-                   <strong>Campo nombre requerido!</strong>                
-                </h6> -->
-                <label class="form-label">Correo</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  aria-describedby="emailHelp"
-                  name="email"
-                  id="email"
-                />
+                  maxlength="10" required>
+                  <div class="valid-feedback">Rut Válido!</div>
+                  <div class="invalid-feedback">Rut Inválido!</div>
+                  <!-- <div class="valid-feedback">Username field is valid!</div>
+                  <div class="invalid-feedback">Username field cannot be blank!</div> -->
+               </div>
+                <div class="col-md-12">
+                  <p class="modal-title" id="exampleModalLabel">
+                    Nombre y Apellido
+                  </p>
+                  <input class="form-control" type="text" name="name" id="name" required>
+                  <div class="valid-feedback"></div>
+                  <div class="invalid-feedback">Nombre requerido!</div>
+               </div>
+                
+                <div class="col-md-12">
+                  <p class="modal-title" id="exampleModalLabel">
+                    Correo
+                  </p>
+                  <input class="form-control" type="email" name="email"
+                  id="email" placeholder="example@example.cl" required>
+                   <div class="valid-feedback">Correo válido!</div>
+                   <div class="invalid-feedback">Correo requerido o inválido!</div>
+              </div>
                 <!-- <h6 style="color: red; display: none" class="alertShow">
                   <strong>Campo correo requerido!</strong>                
                </h6> -->
-                <label class="form-label">Teléfono</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="phone"
+                <div class="col-md-12">
+                  <p class="modal-title" id="exampleModalLabel">
+                    Teléfono
+                  </p>
+                  <input class="form-control" type="text" name="phone"
                   id="phone"
-                  maxlength="9"
-                />
-
-                <label class="form-label">Cargo</label>
-                <select
-                  class="form-select"
-                  aria-label="Default select example"
-                  name="charge"
-                  id="charge"
-                >
+                  maxlength="9" required>
+                  <div class="valid-feedback"></div>
+                  <div class="invalid-feedback">Teléfono requerido!</div>
+               </div>
+  
+                <div class="col-md-12">
+                  <p class="modal-title" id="exampleModalLabel">
+                    Cargo
+                  </p>
+                  <select class="form-select mt-3" name="charge"
+                  id="charge" required>
                   <option value="Sostenedor" selected>Sostenedor</option>
                   <option value="Director">Director</option>
                   <option value="Jefe UTP">Jefe UTP</option>
                   <option value="Docente">Docente</option>
-                </select>
-                <h6 style="color: red; display: none" class="alertShow">
-                  <strong>Todos los campos son requeridos!</strong>
-                </h6>
+                 </select>
+                  <div class="valid-feedback"></div>
+                  <div class="invalid-feedback">Seleccione una opción!</div>
+             </div>
+               
+               
               </div>
               <div class="modal-footer">
                 <button

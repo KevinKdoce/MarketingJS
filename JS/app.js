@@ -1,47 +1,80 @@
 var dataRbd = [];
 var dataSend = [];
 
-document.getElementById("modal").addEventListener("click", () => {
+document.getElementById("wpforms-21561-field_6").addEventListener("click", () => {
   getRbd();
-  SameRut();
-  sendData();
-  onlyNumbers();
   responseRbd();
 });
 
+document.getElementById("sendData").addEventListener("click", () => {
+  sendData();
+});
+
 const sendData = () => {
-  document.getElementById("formData").addEventListener("submit", (event) => {
-    event.preventDefault();
-    checkRut(rut);
-    var name = $("#name").val();
-    var email = $("#email").val();
-    var phone = $("#phone").val();
-
-    if (name.length == 0 || email.length == 0 || phone.length == 0) {
-      $(".alertShow").fadeIn();
-      return false;
-    }
-
-    var data = $("#formData").serialize();
-    $.ajax({
-      url: "./sendData.php",
-      type: "POST",
-      data: data,
-      success: (data) => {
-        if (data == 1) {
-          Lobibox.alert("success", {
-            title: "Confirmación",
-            iconClass: "glyphicon glyphicon-ok-sign",
-            msg: "Su solicitud ha sido enviada!",
-          });
-          // this.submit();
-          // data.load();
-        } else {
-          alert("ERROR DEL SERVER");
+  var forms = $("#wpforms-form-21561");
+  Array.from(forms).forEach((form) => {
+    form.addEventListener(
+      "submit",
+      (event) => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+          checkRut(rut);
         }
+        var check = form.checkValidity();
+        form.classList.add("was-validated");
+        SuccessSend(check);
       },
-    });
+      false
+    );
   });
+};
+
+const dataValidate = (check) => {
+  return new Promise((resolve, reject) => {
+    if (check) {
+      resolve("SENDED");
+      const data = {
+        rut: $("#rut").val(),
+        name: $("#name").val(),
+        email: $("#email").val(),
+        phone: $("#phone").val(),
+        charge: $("#charge").val(),
+        rbd: $("#rbd").val(),
+        nameCollege: $("#nameCollege").val(),
+        nameComuna: $("#nameComuna").val(),
+      };
+      $.ajax({
+        url: "./sendData.php",
+        type: "POST",
+        data: data,
+        success: (data) => {
+          if (data == 1) {
+            Lobibox.alert("success", {
+              title: "Confirmación",
+              iconClass: "glyphicon glyphicon-ok-sign",
+              msg: "Su solicitud ha sido enviada!",
+            });
+            setTimeout(() => {
+              location.reload();
+            }, 3000);
+          } else {
+            alert("ERROR DEL SERVER");
+          }
+        },
+      });
+    } else {
+      reject("ERROR");
+    }
+  });
+};
+
+const SuccessSend = async (check) => {
+  try {
+    await dataValidate(check);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const getRbd = () => {
@@ -67,7 +100,7 @@ const SameRut = () => {
 };
 
 const responseRbd = () => {
-  document.getElementById("rbd").addEventListener("change", ({ target }) => {
+  document.getElementById("wpforms-21561-field_6").addEventListener("change", ({ target }) => {
     const resultFilter = dataRbd.map((rbd) =>
       rbd.filter((element) => {
         if (element.rbd == target.value) {
